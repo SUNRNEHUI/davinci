@@ -1,0 +1,84 @@
+{
+  "filter_count": 15,
+  "filters": [
+    {
+      "display_name": "Leica BW HC",
+      "filter_id": "leica_leica_bw_hc",
+      "flut_file": "leica_leica_bw_hc.flut"
+    },
+    {
+      "display_name": "Leica BW NAT",
+      "filter_id": "leica_leica_bw_nat",
+      "flut_file": "leica_leica_bw_nat.flut"
+    },
+    {
+      "display_name": "Leica Bleach",
+      "filter_id": "leica_leica_bleach",
+      "flut_file": "leica_leica_bleach.flut"
+    },
+    {
+      "display_name": "Leica Blue",
+      "filter_id": "leica_leica_blue",
+      "flut_file": "leica_leica_blue.flut"
+    },
+    {
+      "display_name": "Leica Brass",
+      "filter_id": "leica_leica_brass",
+      "flut_file": "leica_leica_brass.flut"
+    },
+    {
+      "display_name": "Leica Chrome",
+      "filter_id": "leica_leica_chrome",
+      "flut_file": "leica_leica_chrome.flut"
+    },
+    {
+      "display_name": "Leica Classic",
+      "filter_id": "leica_leica_classic",
+      "flut_file": "leica_leica_classic.flut"
+    },
+    {
+      "display_name": "Leica Contemporary",
+      "filter_id": "leica_leica_contemporary",
+      "flut_file": "leica_leica_contemporary.flut"
+    },
+    {
+      "display_name": "Leica Eternal",
+      "filter_id": "leica_leica_eternal",
+      "flut_file": "leica_leica_eternal.flut"
+    },
+    {
+      "display_name": "Leica Greg Williams",
+      "filter_id": "leica_leica_greg_williams",
+      "flut_file": "leica_leica_greg_williams.flut"
+    },
+    {
+      "display_name": "Leica NAT",
+      "filter_id": "leica_leica_nat",
+      "flut_file": "leica_leica_nat.flut"
+    },
+    {
+      "display_name": "Leica Selenium",
+      "filter_id": "leica_leica_selenium",
+      "flut_file": "leica_leica_selenium.flut"
+    },
+    {
+      "display_name": "Leica Sepia",
+      "filter_id": "leica_leica_sepia",
+      "flut_file": "leica_leica_sepia.flut"
+    },
+    {
+      "display_name": "Leica Teal",
+      "filter_id": "leica_leica_teal",
+      "flut_file": "leica_leica_teal.flut"
+    },
+    {
+      "display_name": "Leica VIVID",
+      "filter_id": "leica_leica_vivid",
+      "flut_file": "leica_leica_vivid.flut"
+    }
+  ],
+  "generated_at": "2026-03-27T15:05:33.441151+00:00",
+  "lut_domain": "rec709",
+  "skill_id": "leica.skill.core",
+  "skill_version": "1.0.0"
+}

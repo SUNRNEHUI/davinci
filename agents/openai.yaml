@@ -1,0 +1,7 @@
+interface:
+  display_name: "DAVINCI"
+  short_description: "Photo grading for local photos"
+  default_prompt: "Use $davinci to grade /path/to/photo.jpg in Leica or Fuji style."
+
+policy:
+  allow_implicit_invocation: true

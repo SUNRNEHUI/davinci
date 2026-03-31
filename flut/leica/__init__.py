@@ -1,0 +1,1 @@
+"""Shipped Leica FLUT catalog."""

@@ -1,0 +1,146 @@
+{
+  "catalog": "fuji",
+  "display_name": "Fuji Rec709 Simulations",
+  "filters": [
+    {
+      "aliases": [
+        "provia",
+        "standard"
+      ],
+      "display_name": "Fuji PROVIA / Standard",
+      "filter_id": "fuji_provia",
+      "flut_file": "fuji_provia.flut",
+      "reason": "Balanced all-round color for general shooting.",
+      "source_cube": "Rec709_PROVIA.cube"
+    },
+    {
+      "aliases": [
+        "velvia",
+        "vivid"
+      ],
+      "display_name": "Fuji Velvia / VIVID",
+      "filter_id": "fuji_velvia",
+      "flut_file": "fuji_velvia.flut",
+      "reason": "High saturation for landscapes, sky, and foliage.",
+      "source_cube": "Rec709_Velvia.cube"
+    },
+    {
+      "aliases": [
+        "astia",
+        "soft"
+      ],
+      "display_name": "Fuji ASTIA / Soft",
+      "filter_id": "fuji_astia",
+      "flut_file": "fuji_astia.flut",
+      "reason": "Soft contrast for portraits and pastel light.",
+      "source_cube": "Rec709_ASTIA.cube"
+    },
+    {
+      "aliases": [
+        "pro neg std",
+        "pro neg"
+      ],
+      "display_name": "Fuji PRO Neg. Std",
+      "filter_id": "fuji_pro_neg_std",
+      "flut_file": "fuji_pro_neg_std.flut",
+      "reason": "Controlled skin tones for portrait sessions.",
+      "source_cube": "Rec709_PRONegStd.cube"
+    },
+    {
+      "aliases": [
+        "classic chrome"
+      ],
+      "display_name": "Fuji Classic Chrome",
+      "filter_id": "fuji_classic_chrome",
+      "flut_file": "fuji_classic_chrome.flut",
+      "reason": "Muted documentary color for street and travel.",
+      "source_cube": "Rec709_CLASSICCHROME.cube"
+    },
+    {
+      "aliases": [
+        "classic neg",
+        "classic negative"
+      ],
+      "display_name": "Fuji Classic Neg.",
+      "filter_id": "fuji_classic_neg",
+      "flut_file": "fuji_classic_neg.flut",
+      "reason": "Punchier shadows for city grit and nostalgia.",
+      "source_cube": "Rec709_CLASSICNeg.cube"
+    },
+    {
+      "aliases": [
+        "acros"
+      ],
+      "display_name": "Fuji ACROS",
+      "filter_id": "fuji_acros",
+      "flut_file": "fuji_acros.flut",
+      "reason": "Monochrome structure for street lines and texture.",
+      "source_cube": "Rec709_ACROS.cube"
+    },
+    {
+      "aliases": [
+        "eterna"
+      ],
+      "display_name": "Fuji ETERNA",
+      "filter_id": "fuji_eterna",
+      "flut_file": "fuji_eterna.flut",
+      "reason": "Low-contrast cinematic tone for calm light.",
+      "source_cube": "Rec709_ETERNA.cube"
+    },
+    {
+      "aliases": [
+        "eterna bleach bypass",
+        "bleach bypass"
+      ],
+      "display_name": "Fuji ETERNA Bleach Bypass",
+      "filter_id": "fuji_eterna_bleach_bypass",
+      "flut_file": "fuji_eterna_bleach_bypass.flut",
+      "reason": "Bleached, metallic drama for harsh scenes.",
+      "source_cube": "Rec709_ETERNABB.cube"
+    },
+    {
+      "aliases": [
+        "reala ace",
+        "reala"
+      ],
+      "display_name": "Fuji REALA ACE",
+      "filter_id": "fuji_reala_ace",
+      "flut_file": "fuji_reala_ace.flut",
+      "reason": "Modern neutral palette with clean daylight color.",
+      "source_cube": "Rec709_REALAACE.cube"
+    }
+  ],
+  "lut_domain": "rec709",
+  "scene_filters": {
+    "general": [
+      "fuji_provia",
+      "fuji_reala_ace",
+      "fuji_classic_chrome",
+      "fuji_eterna",
+      "fuji_astia"
+    ],
+    "landscape": [
+      "fuji_velvia",
+      "fuji_provia",
+      "fuji_reala_ace",
+      "fuji_astia",
+      "fuji_classic_chrome"
+    ],
+    "portrait": [
+      "fuji_astia",
+      "fuji_pro_neg_std",
+      "fuji_reala_ace",
+      "fuji_eterna",
+      "fuji_provia"
+    ],
+    "street": [
+      "fuji_classic_chrome",
+      "fuji_classic_neg",
+      "fuji_acros",
+      "fuji_eterna_bleach_bypass",
+      "fuji_eterna"
+    ]
+  },
+  "skill_id": "fuji.skill.rec709",
+  "skill_version": "1.0.0"
+}

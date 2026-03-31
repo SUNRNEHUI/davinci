@@ -1,0 +1,194 @@
+{
+  "catalog": "leica",
+  "display_name": "Leica Signature Looks",
+  "filters": [
+    {
+      "aliases": [
+        "bw hc",
+        "high contrast bw"
+      ],
+      "display_name": "Leica BW HC",
+      "filter_id": "leica_leica_bw_hc",
+      "flut_file": "leica_leica_bw_hc.flut",
+      "reason": "Deep blacks for street and structure.",
+      "source_cube": "Leica BW HC.cube"
+    },
+    {
+      "aliases": [
+        "bw nat",
+        "natural bw"
+      ],
+      "display_name": "Leica BW NAT",
+      "filter_id": "leica_leica_bw_nat",
+      "flut_file": "leica_leica_bw_nat.flut",
+      "reason": "Gentle mono for portraits and skin.",
+      "source_cube": "Leica BW NAT.cube"
+    },
+    {
+      "aliases": [
+        "bleach"
+      ],
+      "display_name": "Leica Bleach",
+      "filter_id": "leica_leica_bleach",
+      "flut_file": "leica_leica_bleach.flut",
+      "reason": "Desaturated grit for harsh light.",
+      "source_cube": "Leica Bleach.cube"
+    },
+    {
+      "aliases": [
+        "blue"
+      ],
+      "display_name": "Leica Blue",
+      "filter_id": "leica_leica_blue",
+      "flut_file": "leica_leica_blue.flut",
+      "reason": "Cool cast for rain, dusk and glass.",
+      "source_cube": "Leica Blue.cube"
+    },
+    {
+      "aliases": [
+        "brass"
+      ],
+      "display_name": "Leica Brass",
+      "filter_id": "leica_leica_brass",
+      "flut_file": "leica_leica_brass.flut",
+      "reason": "Warm golden tone for interiors.",
+      "source_cube": "Leica Brass.cube"
+    },
+    {
+      "aliases": [
+        "chrome"
+      ],
+      "display_name": "Leica Chrome",
+      "filter_id": "leica_leica_chrome",
+      "flut_file": "leica_leica_chrome.flut",
+      "reason": "Punchy contrast for clean daylight.",
+      "source_cube": "Leica Chrome.cube"
+    },
+    {
+      "aliases": [
+        "classic"
+      ],
+      "display_name": "Leica Classic",
+      "filter_id": "leica_leica_classic",
+      "flut_file": "leica_leica_classic.flut",
+      "reason": "Balanced Leica look, easy default.",
+      "source_cube": "Leica Classic.cube"
+    },
+    {
+      "aliases": [
+        "contemporary"
+      ],
+      "display_name": "Leica Contemporary",
+      "filter_id": "leica_leica_contemporary",
+      "flut_file": "leica_leica_contemporary.flut",
+      "reason": "Modern palette for design scenes.",
+      "source_cube": "Leica Contemporary.cube"
+    },
+    {
+      "aliases": [
+        "eternal"
+      ],
+      "display_name": "Leica Eternal",
+      "filter_id": "leica_leica_eternal",
+      "flut_file": "leica_leica_eternal.flut",
+      "reason": "Soft nostalgia for quiet moments.",
+      "source_cube": "Leica Eternal.cube"
+    },
+    {
+      "aliases": [
+        "greg williams"
+      ],
+      "display_name": "Leica Greg Williams",
+      "filter_id": "leica_leica_greg_williams",
+      "flut_file": "leica_leica_greg_williams.flut",
+      "reason": "Cinematic portrait rendering.",
+      "source_cube": "Leica Greg Williams.cube"
+    },
+    {
+      "aliases": [
+        "nat",
+        "natural"
+      ],
+      "display_name": "Leica NAT",
+      "filter_id": "leica_leica_nat",
+      "flut_file": "leica_leica_nat.flut",
+      "reason": "Neutral color when subtle wins.",
+      "source_cube": "Leica NAT.cube"
+    },
+    {
+      "aliases": [
+        "selenium"
+      ],
+      "display_name": "Leica Selenium",
+      "filter_id": "leica_leica_selenium",
+      "flut_file": "leica_leica_selenium.flut",
+      "reason": "Warm mono depth for moody frames.",
+      "source_cube": "Leica Selenium.cube"
+    },
+    {
+      "aliases": [
+        "sepia"
+      ],
+      "display_name": "Leica Sepia",
+      "filter_id": "leica_leica_sepia",
+      "flut_file": "leica_leica_sepia.flut",
+      "reason": "Vintage brown tone for memory shots.",
+      "source_cube": "Leica Sepia.cube"
+    },
+    {
+      "aliases": [
+        "teal"
+      ],
+      "display_name": "Leica Teal",
+      "filter_id": "leica_leica_teal",
+      "flut_file": "leica_leica_teal.flut",
+      "reason": "Cool separation for coast and city.",
+      "source_cube": "Leica Teal.cube"
+    },
+    {
+      "aliases": [
+        "vivid"
+      ],
+      "display_name": "Leica VIVID",
+      "filter_id": "leica_leica_vivid",
+      "flut_file": "leica_leica_vivid.flut",
+      "reason": "Higher color energy for landscapes.",
+      "source_cube": "Leica VIVID.cube"
+    }
+  ],
+  "lut_domain": "rec709",
+  "scene_filters": {
+    "general": [
+      "leica_leica_classic",
+      "leica_leica_nat",
+      "leica_leica_vivid",
+      "leica_leica_contemporary",
+      "leica_leica_chrome",
+      "leica_leica_eternal",
+      "leica_leica_brass"
+    ],
+    "landscape": [
+      "leica_leica_vivid",
+      "leica_leica_teal",
+      "leica_leica_nat",
+      "leica_leica_contemporary",
+      "leica_leica_blue"
+    ],
+    "portrait": [
+      "leica_leica_classic",
+      "leica_leica_bw_nat",
+      "leica_leica_greg_williams",
+      "leica_leica_chrome",
+      "leica_leica_brass"
+    ],
+    "street": [
+      "leica_leica_bw_hc",
+      "leica_leica_bleach",
+      "leica_leica_selenium",
+      "leica_leica_eternal",
+      "leica_leica_sepia"
+    ]
+  },
+  "skill_id": "leica.skill.core",
+  "skill_version": "1.0.0"
+}

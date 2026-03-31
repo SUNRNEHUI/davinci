@@ -1,0 +1,59 @@
+{
+  "filter_count": 10,
+  "filters": [
+    {
+      "display_name": "Fuji PROVIA / Standard",
+      "filter_id": "fuji_provia",
+      "flut_file": "fuji_provia.flut"
+    },
+    {
+      "display_name": "Fuji Velvia / VIVID",
+      "filter_id": "fuji_velvia",
+      "flut_file": "fuji_velvia.flut"
+    },
+    {
+      "display_name": "Fuji ASTIA / Soft",
+      "filter_id": "fuji_astia",
+      "flut_file": "fuji_astia.flut"
+    },
+    {
+      "display_name": "Fuji PRO Neg. Std",
+      "filter_id": "fuji_pro_neg_std",
+      "flut_file": "fuji_pro_neg_std.flut"
+    },
+    {
+      "display_name": "Fuji Classic Chrome",
+      "filter_id": "fuji_classic_chrome",
+      "flut_file": "fuji_classic_chrome.flut"
+    },
+    {
+      "display_name": "Fuji Classic Neg.",
+      "filter_id": "fuji_classic_neg",
+      "flut_file": "fuji_classic_neg.flut"
+    },
+    {
+      "display_name": "Fuji ACROS",
+      "filter_id": "fuji_acros",
+      "flut_file": "fuji_acros.flut"
+    },
+    {
+      "display_name": "Fuji ETERNA",
+      "filter_id": "fuji_eterna",
+      "flut_file": "fuji_eterna.flut"
+    },
+    {
+      "display_name": "Fuji ETERNA Bleach Bypass",
+      "filter_id": "fuji_eterna_bleach_bypass",
+      "flut_file": "fuji_eterna_bleach_bypass.flut"
+    },
+    {
+      "display_name": "Fuji REALA ACE",
+      "filter_id": "fuji_reala_ace",
+      "flut_file": "fuji_reala_ace.flut"
+    }
+  ],
+  "generated_at": "2026-03-28T11:47:30.207908+00:00",
+  "lut_domain": "rec709",
+  "skill_id": "fuji.skill.rec709",
+  "skill_version": "1.0.0"
+}
