@@ -9,6 +9,8 @@
 - macOS
 - Apple Silicon 芯片
 
+当前这轮公开测试只支持这一种环境，`Windows / Linux` 不在本轮支持范围内。
+
 ## 如何打开
 
 推荐双击：

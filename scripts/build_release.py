@@ -81,7 +81,7 @@ def _copy_tree(output_dir: Path, relative_dir: str, allowed_suffixes: set[str]) 
 def _write_release_readme(output_dir: Path) -> str:
     content = """# DAVINCI CLI Release Package
 
-This directory is the standalone download payload for DAVINCI.
+This directory is the source release payload for DAVINCI.
 
 It supports two usage modes:
 - local CLI
@@ -94,9 +94,7 @@ It supports two usage modes:
 - `pyproject.toml`
 - `examples/input_demo.png`
 - `scripts/*.py`
-- `flut/*/*.flut`
-- `flut/*/index.json`
-- `flut/*/runtime.key.b64`
+- bundled style assets
 
 ## Quick Start
 
@@ -140,6 +138,12 @@ What `davinci start` does:
 - saves outputs under `~/Pictures/DAVINCI/`
 - saves demo outputs under `~/Pictures/DAVINCI/_demo/`
 
+## Platform Scope
+
+- Official downloadable build: macOS Apple Silicon only
+- Windows/Linux: no official installer or standalone package yet
+- Source mode on other platforms is not part of the current public support promise
+
 ## Install As A Local Codex Skill
 
 Copy this extracted folder into `~/.codex/skills/davinci` and restart Codex:
@@ -154,11 +158,6 @@ After restart, prompts like these should trigger the skill:
 - `帮我给这张图来个富士味`
 - `给这张照片来点胶片感`
 - `先推荐几个滤镜`
-
-## Asset Protection Note
-
-This package intentionally ships `runtime.key.b64` together with the FLUT assets so users can run it with zero setup.
-That lowers the protection strength of the filter assets. `FLUT` remains the protected runtime file format; `DAVINCI` is the product surface.
 """
     readme_path = output_dir / "README.md"
     readme_path.write_text(content, encoding="utf-8")

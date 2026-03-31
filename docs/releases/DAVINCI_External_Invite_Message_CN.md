@@ -4,7 +4,7 @@
 
 这是一款本地照片调色 CLI 工具，你给它一张照片，它会先给你看几个方向，再让你决定。当前内置了 Leica 和 Fuji 两套风格路线。
 
-这次测试包已经做成了可直接运行的 macOS 独立版，不需要自己装 Python。打开方式很简单，双击 `DAVINCI.command` 就可以。
+这次测试包已经做成了可直接运行的 macOS 独立版，不需要自己装 Python。打开方式很简单，双击 `DAVINCI.command` 就可以。当前这轮测试只支持 `macOS Apple Silicon`，`Windows / Linux` 暂不在这轮范围内。
 
 这轮我们主要想看 4 件事：
 

@@ -17,6 +17,8 @@ class TestBuildRelease(unittest.TestCase):
             readme_text = (output_dir / "README.md").read_text(encoding="utf-8")
             self.assertIn("davinci demo", readme_text)
             self.assertIn("~/Pictures/DAVINCI/_demo/", readme_text)
+            self.assertIn("macOS Apple Silicon only", readme_text)
+            self.assertNotIn("FLUT", readme_text)
             self.assertTrue((output_dir / "SKILL.md").exists())
             self.assertTrue((output_dir / "agents" / "openai.yaml").exists())
             self.assertTrue((output_dir / "scripts" / "leica_cli.py").exists())
