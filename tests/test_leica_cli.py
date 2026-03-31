@@ -33,6 +33,8 @@ class TestLeicaCLI(unittest.TestCase):
         self.env_patch = patch.dict(
             os.environ,
             {
+                "DAVINCI_CLI_HOME": str(self.tmpdir / "cli_home"),
+                "DAVINCI_HOME": str(self.tmpdir / "cli_home"),
                 "LEICA_CLI_HOME": str(self.tmpdir / "cli_home"),
                 "DAVINCI_OUTPUT_ROOT": str(self.default_output_root),
             },
@@ -780,6 +782,37 @@ class TestLeicaCLI(unittest.TestCase):
         self.assertTrue(Path(payload["contact_sheet_path"]).exists())
         self.assertEqual("", stderr)
 
+    def test_pick_image_path_uses_tk_fallback_off_macos(self) -> None:
+        import leica_cli
+
+        with (
+            patch.object(leica_cli.sys, "platform", "linux"),
+            patch("leica_cli._pick_image_path_tk", return_value=(str(self.input_path), None)),
+        ):
+            self.assertEqual(leica_cli._pick_image_path(), str(self.input_path))
+
+    def test_pick_image_path_raises_when_all_pickers_unavailable(self) -> None:
+        import leica_cli
+
+        with (
+            patch.object(leica_cli.sys, "platform", "linux"),
+            patch("leica_cli._pick_image_path_tk", return_value=(None, "no display")),
+        ):
+            with self.assertRaisesRegex(ValueError, "File picker is unavailable"):
+                leica_cli._pick_image_path()
+
+    def test_pick_image_path_prefers_macos_picker_when_available(self) -> None:
+        import leica_cli
+
+        with (
+            patch.object(leica_cli.sys, "platform", "darwin"),
+            patch("leica_cli._pick_image_path_macos", return_value=(str(self.input_path), None)),
+            patch("leica_cli._pick_image_path_tk") as tk_mock,
+        ):
+            selected = leica_cli._pick_image_path()
+        self.assertEqual(selected, str(self.input_path))
+        tk_mock.assert_not_called()
+
     def test_start_without_output_dir_uses_davinci_output_root(self) -> None:
         index_path = self._make_three_filter_bundle(catalog="demo")
 
@@ -1045,7 +1078,7 @@ class TestLeicaCLI(unittest.TestCase):
         self.assertEqual(rc, 0)
         start_payload = json.loads(stdout)
 
-        cli_home = Path(os.environ["LEICA_CLI_HOME"])
+        cli_home = Path(os.environ["DAVINCI_CLI_HOME"])
         current_session = cli_home / "current_session"
         if current_session.exists():
             current_session.unlink()

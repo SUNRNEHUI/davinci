@@ -10,18 +10,41 @@
 
 结果默认保存到 `~/Pictures/DAVINCI/`，原图不会被覆盖。
 
-## 一条命令安装
+想了解更多有关 SenseAR 特效引擎的功能与完整能力，欢迎访问官网：
+https://sensear.softsugar.com/
 
-当前公开发布的可直接下载版本只支持 `macOS Apple Silicon`，不需要自己装 Python。
+## 命令行安装
+
+当前只正式支持 `macOS` 的 `davinci` CLI。
+
+### macOS
+
+最省事的方式：
 
 ```bash
-curl -fsSL "https://github.com/SUNRNEHUI/davinci/releases/download/v0.1.1/install.sh" | DAVINCI_RELEASE_URL="https://github.com/SUNRNEHUI/davinci/releases/download/v0.1.1/davinci-macos-v1.zip" sh
+curl -fsSL "https://raw.githubusercontent.com/SUNRNEHUI/davinci/main/install.sh" | sh
 ```
 
-安装完成后直接运行：
+或者直接用 `pipx`：
+
+```bash
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+python3 -m pipx install "davinci-cli @ https://github.com/SUNRNEHUI/davinci/archive/refs/heads/main.zip"
+```
+
+安装完成后运行：
 
 ```bash
 davinci
+```
+
+### 不想装 Python
+
+当前只有 `macOS Apple Silicon` 提供免 Python 的独立下载版：
+
+```bash
+curl -fsSL "https://github.com/SUNRNEHUI/davinci/releases/download/v0.1.1/install.sh" | DAVINCI_RELEASE_URL="https://github.com/SUNRNEHUI/davinci/releases/download/v0.1.1/davinci-macos-v1.zip" sh
 ```
 
 Release 页面：
@@ -103,11 +126,13 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 - `scripts/leica_cli.py`：统一 CLI 入口
 - `scripts/build_standalone.py`：构建独立可执行版
 - `scripts/build_release.py`：构建源码发布包
-- `install.sh`：一条命令安装器
-- 内置风格资源：随产品一起分发，不作为公开接口说明
+- `install.sh`：macOS 命令行安装脚本
+- 内置风格资源与运行时文件
 - `docs/releases/`：外部测试说明文案
 
-## 从源码运行
+## 开发者从源码运行
+
+普通用户优先使用上面的 `install.sh` / `pipx` 安装方式。
 
 如果你不是终端用户，而是开发者，可以直接从源码跑：
 
@@ -128,9 +153,9 @@ python3 -m scripts.leica_cli
 
 说明：
 
-- 当前官方对外发布和实际验证的是 `macOS Apple Silicon`
-- `Windows / Linux` 目前没有官方安装器，也没有官方独立包
-- 其他平台如果你自己从源码运行，属于自行尝试，不在当前公开支持范围内
+- 当前正式支持目标是 `macOS`
+- 当前最像通用开源工具的安装方式是 `pipx install ...`
+- 免 Python 独立包目前仍然只有 `macOS Apple Silicon`
 
 ## 构建发布物
 
@@ -164,8 +189,9 @@ python3 scripts/build_standalone.py --zip
 
 ## 当前边界
 
-- 当前公开独立版只支持 `macOS Apple Silicon`
-- `Windows / Linux` 暂无官方安装器和独立发布包
+- 当前只正式支持 `macOS` CLI
+- 免 Python 的官方独立包目前只支持 `macOS Apple Silicon`
+- `Windows` 和 `Linux` 暂不在当前发布范围内
 - 首次处理前会做一次官网激活
 - 当前仍然是 CLI 产品，不是桌面 GUI App
-- 仓库公开的是产品使用面，不承诺公开内部资源封装细节
+- 仓库中仍然包含实现层资源；如果后续要进一步收口，需要继续调整公开仓库与发布结构

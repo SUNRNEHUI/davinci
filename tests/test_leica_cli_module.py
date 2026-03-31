@@ -17,7 +17,10 @@ class TestLeicaCliModule(unittest.TestCase):
     def test_module_entrypoint_lists_filters(self):
         """`python -m scripts.leica_cli` should work in package mode."""
         env = dict(os.environ)
-        env["LEICA_CLI_HOME"] = tempfile.mkdtemp()
+        cli_home = tempfile.mkdtemp()
+        env["DAVINCI_CLI_HOME"] = cli_home
+        env["DAVINCI_HOME"] = cli_home
+        env["LEICA_CLI_HOME"] = cli_home
         env["DAVINCI_OUTPUT_ROOT"] = tempfile.mkdtemp()
         result = subprocess.run(
             [sys.executable, "-m", "scripts.leica_cli", "list-filters", "--json"],
@@ -37,6 +40,8 @@ class TestLeicaCliModule(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             output_path = Path(tmp) / "rendered.png"
             env = dict(os.environ)
+            env["DAVINCI_CLI_HOME"] = str(Path(tmp) / "cli_home")
+            env["DAVINCI_HOME"] = str(Path(tmp) / "cli_home")
             env["LEICA_CLI_HOME"] = str(Path(tmp) / "cli_home")
             env["DAVINCI_OUTPUT_ROOT"] = str(Path(tmp) / "davinci_output")
             result = subprocess.run(

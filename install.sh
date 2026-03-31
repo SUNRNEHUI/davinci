@@ -1,12 +1,15 @@
 #!/bin/sh
 set -eu
 
-VERSION="${DAVINCI_VERSION:-v0.1.1}"
+VERSION="${DAVINCI_VERSION:-v1}"
 ASSET_NAME="${DAVINCI_ASSET_NAME:-davinci-macos-v1.zip}"
 RELEASE_URL="${DAVINCI_RELEASE_URL:-}"
 INSTALL_ROOT="${DAVINCI_INSTALL_ROOT:-$HOME/.local/share/davinci}"
 BIN_DIR="${DAVINCI_BIN_DIR:-$HOME/.local/bin}"
 TMP_DIR="${TMPDIR:-/tmp}"
+PACKAGE_NAME="${DAVINCI_PACKAGE_NAME:-davinci-cli}"
+SOURCE_REF="${DAVINCI_SOURCE_REF:-main}"
+SOURCE_URL="${DAVINCI_SOURCE_URL:-https://github.com/SUNRNEHUI/davinci/archive/refs/heads/${SOURCE_REF}.zip}"
 
 log() {
   printf '%s\n' "$*"
@@ -22,10 +25,28 @@ need_cmd() {
 }
 
 detect_platform() {
-  os="$(uname -s)"
-  arch="$(uname -m)"
-  [ "$os" = "Darwin" ] || fail "DAVINCI installer currently supports macOS only."
-  [ "$arch" = "arm64" ] || fail "DAVINCI installer currently supports Apple Silicon only."
+  OS_NAME="$(uname -s)"
+  ARCH_NAME="$(uname -m)"
+  export OS_NAME ARCH_NAME
+}
+
+resolve_python() {
+  for candidate in python3 python; do
+    if command -v "$candidate" >/dev/null 2>&1; then
+      PYTHON_CMD="$candidate"
+      export PYTHON_CMD
+      return 0
+    fi
+  done
+  fail "python3 or python is required for macOS source installation."
+}
+
+binary_mode_requested() {
+  [ -n "$RELEASE_URL" ] || [ -n "${DAVINCI_RELEASE_BASE_URL:-}" ]
+}
+
+binary_mode_supported() {
+  [ "${OS_NAME:-}" = "Darwin" ] && [ "${ARCH_NAME:-}" = "arm64" ]
 }
 
 resolve_release_url() {
@@ -84,7 +105,7 @@ EOF
   chmod +x "$launcher"
 }
 
-print_next_steps() {
+print_binary_next_steps() {
   bundle_dir="$1"
   log ""
   log "DAVINCI installed."
@@ -99,11 +120,35 @@ print_next_steps() {
   log "  $BIN_DIR/davinci"
 }
 
-main() {
+ensure_pipx() {
+  if "$PYTHON_CMD" -m pipx --version >/dev/null 2>&1; then
+    return 0
+  fi
+  log "Installing pipx for the current user..."
+  "$PYTHON_CMD" -m pip install --user --upgrade pipx
+}
+
+install_from_source() {
+  resolve_python
+  need_cmd curl
+  ensure_pipx
+  "$PYTHON_CMD" -m pipx ensurepath >/dev/null 2>&1 || true
+  package_spec="${PACKAGE_NAME} @ ${SOURCE_URL}"
+  log "Installing DAVINCI CLI via pipx from:"
+  log "  $SOURCE_URL"
+  "$PYTHON_CMD" -m pipx install --force "$package_spec"
+  log ""
+  log "DAVINCI installed via pipx."
+  log "Command: davinci"
+  log ""
+  log "If your shell cannot find \`davinci\` yet, open a new terminal or run:"
+  log "  $PYTHON_CMD -m pipx ensurepath"
+}
+
+install_from_binary() {
   need_cmd curl
   need_cmd unzip
   need_cmd find
-  detect_platform
 
   url="$(resolve_release_url)"
   work_dir="$(mktemp -d "$TMP_DIR/davinci-install.XXXXXX")"
@@ -118,7 +163,26 @@ main() {
   bundle_dir="$(resolve_bundle_dir "$install_parent")"
   link_binary "$bundle_dir"
   write_app_launcher "$bundle_dir"
-  print_next_steps "$bundle_dir"
+  print_binary_next_steps "$bundle_dir"
+}
+
+main() {
+  detect_platform
+
+  if binary_mode_requested; then
+    binary_mode_supported || fail "Binary installer currently supports macOS Apple Silicon only."
+    install_from_binary
+    return 0
+  fi
+
+  case "${OS_NAME:-}" in
+    Darwin)
+      install_from_source
+      ;;
+    *)
+      fail "install.sh currently supports macOS only."
+      ;;
+  esac
 }
 
 main "$@"
