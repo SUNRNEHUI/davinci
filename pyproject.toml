@@ -30,5 +30,6 @@ leica-skill = "scripts.leica_cli:main"
 include = ["scripts*", "flut*"]
 
 [tool.setuptools.package-data]
+"scripts" = ["_assets/*.png"]
 "flut.leica" = ["*.flut", "*.json", "*.b64"]
 "flut.fuji" = ["*.flut", "*.json", "*.b64"]

@@ -23,6 +23,7 @@ class TestBuildRelease(unittest.TestCase):
             self.assertFalse((output_dir / "install.ps1").exists())
             self.assertTrue((output_dir / "agents" / "openai.yaml").exists())
             self.assertTrue((output_dir / "scripts" / "leica_cli.py").exists())
+            self.assertTrue((output_dir / "scripts" / "_assets" / "input_demo.png").exists())
             self.assertTrue((output_dir / "examples" / "input_demo.png").exists())
             self.assertTrue((output_dir / "flut" / "leica" / "index.json").exists())
             self.assertTrue((output_dir / "flut" / "leica" / "runtime.key.b64").exists())
