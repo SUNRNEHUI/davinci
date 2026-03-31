@@ -12,7 +12,7 @@
 
 ## 一条命令安装
 
-当前公开发布的是 `macOS Apple Silicon` 独立版，不需要自己装 Python。
+当前公开发布的可直接下载版本只支持 `macOS Apple Silicon`，不需要自己装 Python。
 
 ```bash
 curl -fsSL "https://github.com/SUNRNEHUI/davinci/releases/download/v0.1.1/install.sh" | DAVINCI_RELEASE_URL="https://github.com/SUNRNEHUI/davinci/releases/download/v0.1.1/davinci-macos-v1.zip" sh
@@ -104,8 +104,7 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 - `scripts/build_standalone.py`：构建独立可执行版
 - `scripts/build_release.py`：构建源码发布包
 - `install.sh`：一条命令安装器
-- `flut/leica/`：Leica 风格滤镜资源
-- `flut/fuji/`：Fuji 风格滤镜资源
+- 内置风格资源：随产品一起分发，不作为公开接口说明
 - `docs/releases/`：外部测试说明文案
 
 ## 从源码运行
@@ -127,6 +126,12 @@ davinci
 python3 -m scripts.leica_cli
 ```
 
+说明：
+
+- 当前官方对外发布和实际验证的是 `macOS Apple Silicon`
+- `Windows / Linux` 目前没有官方安装器，也没有官方独立包
+- 其他平台如果你自己从源码运行，属于自行尝试，不在当前公开支持范围内
+
 ## 构建发布物
 
 源码发布包：
@@ -146,7 +151,6 @@ python3 scripts/build_standalone.py --zip
 
 - [测试版使用说明](docs/releases/DAVINCI_Test_User_Guide_CN.md)
 - [外部测试邀请文案](docs/releases/DAVINCI_External_Invite_Message_CN.md)
-- [FLUT 格式说明](specs/FLUT_Format_v1.md)
 
 ## License
 
@@ -161,6 +165,7 @@ python3 scripts/build_standalone.py --zip
 ## 当前边界
 
 - 当前公开独立版只支持 `macOS Apple Silicon`
+- `Windows / Linux` 暂无官方安装器和独立发布包
 - 首次处理前会做一次官网激活
 - 当前仍然是 CLI 产品，不是桌面 GUI App
-- 为了开箱即用，运行时 key 与资源一起分发，所以资产保护强度不是最终商业形态
+- 仓库公开的是产品使用面，不承诺公开内部资源封装细节

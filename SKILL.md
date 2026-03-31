@@ -1,6 +1,6 @@
 ---
 name: davinci
-description: Use this skill when users want local photo color grading, Leica or Fuji looks, film-like previews, contact sheets, or direct FLUT rendering. Triggers on: 调色, 滤镜, 莱卡滤镜, 富士滤镜, Leica look, Fuji look, 胶片感, film look, color grade.
+description: Use this skill when users want local photo color grading, Leica or Fuji looks, film-like previews, contact sheets, or direct style rendering. Triggers on: 调色, 滤镜, 莱卡滤镜, 富士滤镜, Leica look, Fuji look, 胶片感, film look, color grade.
 ---
 
 # DAVINCI
@@ -11,8 +11,7 @@ description: Use this skill when users want local photo color grading, Leica or 
 - User wants a specific filter, stronger/weaker intensity, or a preview before final render.
 
 ## Preconditions
-- The skill is self-contained: shipped filters live in `flut/leica/`, runtime scripts live in `scripts/`.
-- Fuji assets also ship inside `flut/fuji/`.
+- The skill is self-contained: bundled style assets ship with the repo, and runtime scripts live in `scripts/`.
 - Install Python dependencies from `requirements.txt` if the runtime is not ready.
 - If the user shared an image but did not provide a local file path, ask for the path before running commands.
 
@@ -67,5 +66,5 @@ python3 -m scripts.leica_cli auto --input <IMAGE_PATH> --json
 ```
 
 ## Notes
-- The shipped package auto-discovers `runtime.key.b64` beside the filter index, so end users do not need to pass a key manually.
-- If the user wants a custom `.flut` outside the shipped package, fall back to `scripts/apply_flut_image.py` with explicit `--flut`.
+- Prefer the shipped built-in styles and the unified CLI surface.
+- If the user wants to operate on custom local assets outside the bundled product flow, fall back to the lower-level scripts in `scripts/`.
