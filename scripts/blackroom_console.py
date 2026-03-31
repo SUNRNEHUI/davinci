@@ -1,4 +1,4 @@
-"""High-drama terminal presentation for DAVINCI console flows."""
+"""High-drama terminal presentation for SenseAR DAVINCI console flows."""
 
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ DEFAULT_THEME = "blackroom"
 
 _THEME_PRESETS: dict[str, dict[str, Any]] = {
     "blackroom": {
-        "title": "DAVINCI / BLACKROOM CONSOLE",
+        "title": "SenseAR DAVINCI / BLACKROOM CONSOLE",
         "signal_label": "Signal",
         "show_logo": True,
         "mood": "Analog noir / tungsten hush / gallery relay",
@@ -38,7 +38,7 @@ _THEME_PRESETS: dict[str, dict[str, Any]] = {
         },
     },
     "minimal": {
-        "title": "DAVINCI / MINIMAL CONSOLE",
+        "title": "SenseAR DAVINCI / MINIMAL CONSOLE",
         "signal_label": "Trace",
         "show_logo": False,
         "mood": "Plain console / quiet handoff / zero drama",
@@ -52,7 +52,7 @@ _THEME_PRESETS: dict[str, dict[str, Any]] = {
         },
     },
     "cipher": {
-        "title": "DAVINCI / CIPHER CONSOLE",
+        "title": "SenseAR DAVINCI / CIPHER CONSOLE",
         "signal_label": "Cipher",
         "show_logo": True,
         "mood": "Telemetry grid / covert lab / signal lock",
@@ -471,6 +471,9 @@ _LOGO_GLYPHS: dict[str, tuple[str, ...]] = {
 }
 
 
+_LOGO_BRAND_SUBTITLE = "S E N S E A R   D A V I N C I"
+
+
 def _build_logo_lines(word: str = "DAVINCI") -> list[str]:
     rows: list[str] = []
     glyph_height = len(next(iter(_LOGO_GLYPHS.values())))
@@ -479,7 +482,7 @@ def _build_logo_lines(word: str = "DAVINCI") -> list[str]:
         rows.append(row.rstrip())
     width = max(len(row) for row in rows)
     rows = [row.ljust(width) for row in rows]
-    rows.append("S T U D I O".center(width))
+    rows.append(_LOGO_BRAND_SUBTITLE.center(width))
     return rows
 
 

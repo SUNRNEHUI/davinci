@@ -46,7 +46,7 @@ class TestBlackroomConsoleThemes(unittest.TestCase):
         experience.start()
         text = stream.getvalue()
         self.assertEqual(experience.theme, "blackroom")
-        self.assertIn("DAVINCI / BLACKROOM CONSOLE", text)
+        self.assertIn("SenseAR DAVINCI / BLACKROOM CONSOLE", text)
         self.assertIn("DAVINCI", text)
         self.assertIn("BLACKROOM SEQUENCE", text)
 
@@ -55,7 +55,7 @@ class TestBlackroomConsoleThemes(unittest.TestCase):
         experience.start()
         text = stream.getvalue()
         self.assertEqual(experience.theme, "minimal")
-        self.assertIn("DAVINCI / MINIMAL CONSOLE", text)
+        self.assertIn("SenseAR DAVINCI / MINIMAL CONSOLE", text)
         self.assertNotIn("______ _", text)
         self.assertIn("Trace", text)
 
@@ -79,7 +79,7 @@ class TestBlackroomConsoleThemes(unittest.TestCase):
         experience.start()
         text = stream.getvalue()
         self.assertEqual(experience.theme, "blackroom")
-        self.assertIn("DAVINCI / BLACKROOM CONSOLE", text)
+        self.assertIn("SenseAR DAVINCI / BLACKROOM CONSOLE", text)
 
     def test_available_themes_contains_required_set(self) -> None:
         from blackroom_console import available_themes
@@ -88,13 +88,14 @@ class TestBlackroomConsoleThemes(unittest.TestCase):
         self.assertTrue({"blackroom", "minimal", "cipher"}.issubset(themes))
 
     def test_logo_lines_keep_uniform_width_and_clear_in_spacing(self) -> None:
-        from blackroom_console import _LOGO_GLYPHS, _logo_lines
+        from blackroom_console import _LOGO_BRAND_SUBTITLE, _LOGO_GLYPHS, _logo_lines
 
         lines = _logo_lines()
         widths = {len(line) for line in lines}
         self.assertEqual(1, len(widths))
         self.assertIn("______", lines[0])
         self.assertIn("|__", "\n".join(lines))
+        self.assertEqual(_LOGO_BRAND_SUBTITLE, lines[-1].strip())
         self.assertEqual("         ", _LOGO_GLYPHS["V"][0])
         self.assertEqual("    V    ", _LOGO_GLYPHS["V"][-1])
 

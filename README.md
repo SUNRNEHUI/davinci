@@ -1,6 +1,6 @@
-# DAVINCI
+# SenseAR DAVINCI
 
-把一张照片交给 DAVINCI。
+把一张照片交给 SenseAR DAVINCI。
 
 它不会先丢给你一长串滤镜名，而是先给你 3 个明显不同的方向，再让你按眼睛选一个。
 
@@ -147,6 +147,16 @@ python3 scripts/build_standalone.py --zip
 - [测试版使用说明](docs/releases/DAVINCI_Test_User_Guide_CN.md)
 - [外部测试邀请文案](docs/releases/DAVINCI_External_Invite_Message_CN.md)
 - [FLUT 格式说明](specs/FLUT_Format_v1.md)
+
+## License
+
+本项目采用 [GNU Affero General Public License v3.0](LICENSE)。
+
+- 这是 OSI 认可的开源许可证
+- 允许商业使用
+- 如果你修改了程序，并通过网络服务对外提供它，通常也需要向用户提供对应源码
+
+品牌名和 Logo 不跟随 AGPL 自动开放，见 [TRADEMARK.md](TRADEMARK.md)。
 
 ## 当前边界
 

@@ -142,6 +142,7 @@ class TestLeicaBeginner(unittest.TestCase):
         summary = flow.run_commands(["1"])
 
         self.assertNotIn("技术名", stream.getvalue())
+        self.assertIn("https://sensear.softsugar.com/", stream.getvalue())
         self.assertTrue(Path(summary["final_output_path"]).exists())
         self.assertTrue(Path(summary["final_compare_path"]).exists())
 

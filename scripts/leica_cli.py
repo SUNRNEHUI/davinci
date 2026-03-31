@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unified vertical CLI for DAVINCI analysis, recommendation, and rendering."""
+"""Unified vertical CLI for SenseAR DAVINCI analysis, recommendation, and rendering."""
 
 from __future__ import annotations
 
@@ -90,6 +90,7 @@ except ImportError:  # pragma: no cover - script execution fallback
 
 PRODUCT_OUTPUT_DIRNAME = "DAVINCI"
 ACTIVATION_URL = "https://www.sensetime.com/cn/product-detail?categoryId=51133575"
+PRODUCT_SITE_URL = "https://sensear.softsugar.com/"
 EXAMPLE_IMAGE = examples_root() / "input_demo.png"
 
 
@@ -106,7 +107,7 @@ def build_parser(profile: dict[str, Any] | None = None) -> argparse.ArgumentPars
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawTextHelpFormatter,
         description=(
-            "DAVINCI vertical CLI for analysis, recommendation, and protected rendering.\n\n"
+            "SenseAR DAVINCI vertical CLI for analysis, recommendation, and protected rendering.\n\n"
             "First run:\n"
             "  davinci\n"
             "  davinci demo\n\n"
@@ -119,15 +120,15 @@ def build_parser(profile: dict[str, Any] | None = None) -> argparse.ArgumentPars
     subparsers = parser.add_subparsers(dest="command", required=False)
     parser.set_defaults(handler=cmd_home)
 
-    home_parser = subparsers.add_parser("home", help="Show the DAVINCI product entry screen")
+    home_parser = subparsers.add_parser("home", help="Show the SenseAR DAVINCI product entry screen")
     home_parser.add_argument("--json", action="store_true", help="Emit JSON instead of human text")
     home_parser.set_defaults(handler=cmd_home)
 
-    activate_parser = subparsers.add_parser("activate", help="Open the official DAVINCI page and complete one-time activation")
+    activate_parser = subparsers.add_parser("activate", help="Open the official SenseAR DAVINCI page and complete one-time activation")
     activate_parser.add_argument("--json", action="store_true", help="Emit JSON instead of human text")
     activate_parser.set_defaults(handler=cmd_activate)
 
-    start_parser = subparsers.add_parser("start", help="Beginner-friendly DAVINCI entry")
+    start_parser = subparsers.add_parser("start", help="Beginner-friendly SenseAR DAVINCI entry")
     start_parser.add_argument("--input", help="Input image path")
     start_parser.add_argument("--pick", action="store_true", help="Open a file picker to choose the image")
     start_parser.add_argument("--catalog", help="Limit to one built-in style family, such as leica or fuji")
@@ -150,7 +151,7 @@ def build_parser(profile: dict[str, Any] | None = None) -> argparse.ArgumentPars
     start_parser.add_argument("--json", action="store_true", help="Emit JSON instead of human text")
     start_parser.set_defaults(handler=cmd_start)
 
-    demo_parser = subparsers.add_parser("demo", help="Run DAVINCI on the built-in sample photo")
+    demo_parser = subparsers.add_parser("demo", help="Run SenseAR DAVINCI on the built-in sample photo")
     demo_parser.add_argument("--theme", choices=theme_choices, default=default_theme, help="Demo presentation theme")
     demo_parser.add_argument("--prompt", default="帮我调色", help="Demo request text")
     demo_parser.add_argument("--catalog", help="Optional style family limit for the demo")
@@ -620,14 +621,16 @@ def cmd_activate(args: argparse.Namespace) -> int:
         "activated": bool(activation.get("activated")),
         "activated_at": activation.get("activated_at"),
         "activation_url": activation.get("activation_url") or ACTIVATION_URL,
+        "website_url": PRODUCT_SITE_URL,
     }
     if payload["activated"]:
         if getattr(args, "json", False):
             _print_json(payload)
         else:
             print("[ACTIVATE]")
-            print("DAVINCI 已激活。")
+            print("SenseAR DAVINCI 已激活。")
             print(f"url={payload['activation_url']}")
+            print(f"website={payload['website_url']}")
             print(f"activated_at={payload['activated_at']}")
         return 0
 
@@ -1871,6 +1874,7 @@ def _run_activation_flow(store: ProductStore, *, source: str) -> tuple[int, dict
             "activated": False,
             "cancelled": True,
             "activation_url": ACTIVATION_URL,
+            "website_url": PRODUCT_SITE_URL,
             "source": source,
             "opened": success,
             "error": error,
@@ -1884,11 +1888,13 @@ def _run_activation_flow(store: ProductStore, *, source: str) -> tuple[int, dict
         "activated": True,
         "activated_at": activation.get("activated_at"),
         "activation_url": ACTIVATION_URL,
+        "website_url": PRODUCT_SITE_URL,
         "source": source,
         "opened": success,
         "error": error,
     }
     print("激活完成。")
+    print(f"商用授权与套餐：{PRODUCT_SITE_URL}")
     return 0, payload
 
 
@@ -2089,8 +2095,9 @@ def _build_home_payload(store: ProductStore) -> dict[str, Any]:
     has_continue = _resolve_continue_session(store, None) is not None or _resolve_continue_history(store) is not None
     return {
         "command": "home",
-        "product": "DAVINCI",
-        "welcome": "欢迎使用达芬奇调色台",
+        "product": "SenseAR DAVINCI",
+        "welcome": "欢迎使用 SenseAR DAVINCI 调色台",
+        "commercial_url": PRODUCT_SITE_URL,
         "tagline": "给我一张照片，我先给你 3 个方向，再让你决定。",
         "product_promise": "我可以把你的照片调成经典的 Leica 或 Fuji 风格。",
         "demo_image": str(EXAMPLE_IMAGE.resolve()) if EXAMPLE_IMAGE.exists() else None,
@@ -2256,8 +2263,9 @@ def _print_home_screen(payload: dict[str, Any], *, theme: str) -> None:
         lines.append("其他：continue 继续上一次")
     else:
         lines.append("其他：help 查看帮助")
+    lines.append(f"价格与商用方案：{payload['commercial_url']}")
     lines.append("原图不会被覆盖")
-    print(_box("DAVINCI", lines, theme=resolved_theme))
+    print(_box("SenseAR DAVINCI", lines, theme=resolved_theme))
 
 
 def _supports_color_output() -> bool:
