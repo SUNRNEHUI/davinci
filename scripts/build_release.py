@@ -24,7 +24,7 @@ ROOT_FILES = (
 
 TREE_RULES: dict[str, set[str]] = {
     "agents": {".yaml", ".yml"},
-    "scripts": {".py"},
+    "scripts": {".py", ".png"},
     "flut": {".py", ".flut", ".json", ".b64"},
 }
 

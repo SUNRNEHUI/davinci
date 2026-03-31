@@ -39,6 +39,9 @@ def resource_root(*required_children: str) -> Path:
 
 
 def examples_root() -> Path:
+    packaged_examples = Path(__file__).resolve().parent / "_assets"
+    if (packaged_examples / "input_demo.png").exists():
+        return packaged_examples
     return resource_root("examples") / "examples"
 
 
