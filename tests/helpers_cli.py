@@ -17,6 +17,8 @@ def run_cli(argv: list[str], *, cli_home: Path) -> tuple[int, str, str]:
     with patch.dict(
         os.environ,
         {
+            "DAVINCI_CLI_HOME": str(cli_home),
+            "DAVINCI_HOME": str(cli_home),
             "LEICA_CLI_HOME": str(cli_home),
             "DAVINCI_OUTPUT_ROOT": str(cli_home.parent / "davinci_output"),
         },

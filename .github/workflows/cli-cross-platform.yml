@@ -1,0 +1,61 @@
+name: CLI macOS
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-cli:
+    runs-on: macos-latest
+    env:
+      DAVINCI_CLI_HOME: ${{ runner.temp }}/davinci-cli-home
+      DAVINCI_HOME: ${{ runner.temp }}/davinci-cli-home
+      LEICA_CLI_HOME: ${{ runner.temp }}/davinci-cli-home
+      DAVINCI_OUTPUT_ROOT: ${{ runner.temp }}/davinci-output
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          python -m pip install -U pip
+          python -m pip install -r requirements.txt -e . pytest build pipx
+
+      - name: Run macOS CLI test subset
+        shell: bash
+        run: |
+          python -m pytest -q \
+            tests/test_install_scripts.py \
+            tests/test_build_release.py \
+            tests/test_leica_cli.py \
+            tests/test_leica_beginner.py \
+            tests/test_leica_pipeline.py \
+            tests/test_leica_cli_module.py
+
+      - name: Build sdist and wheel
+        shell: bash
+        run: |
+          python -m build
+
+      - name: Smoke-test pipx install
+        shell: bash
+        env:
+          PIPX_HOME: ${{ runner.temp }}/pipx-home
+          PIPX_BIN_DIR: ${{ runner.temp }}/pipx-bin
+          PIPX_MAN_DIR: ${{ runner.temp }}/pipx-man
+          PIPX_SHARED_LIBS: ${{ runner.temp }}/pipx-shared
+        run: |
+          mkdir -p "$PIPX_HOME" "$PIPX_BIN_DIR" "$PIPX_MAN_DIR" "$PIPX_SHARED_LIBS"
+          python -m pipx install --force .
+          DAVINCI_CMD="$PIPX_BIN_DIR/davinci"
+          "$DAVINCI_CMD" home --json

@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "davinci-cli"
 version = "0.1.1"
-description = "DAVINCI CLI for local photo grading with built-in style assets."
+description = "DAVINCI macOS CLI for local photo grading."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [
@@ -16,6 +16,11 @@ dependencies = [
   "Pillow>=10.0",
   "cryptography>=42.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/SUNRNEHUI/davinci"
+Repository = "https://github.com/SUNRNEHUI/davinci"
+Releases = "https://github.com/SUNRNEHUI/davinci/releases"
 
 [project.scripts]
 davinci = "scripts.leica_cli:main"

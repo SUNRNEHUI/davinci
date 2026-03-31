@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the standalone DAVINCI release package."""
+"""Build the DAVINCI macOS CLI release package."""
 
 from __future__ import annotations
 
@@ -18,6 +18,7 @@ ROOT_FILES = (
     "SKILL.md",
     "requirements.txt",
     "pyproject.toml",
+    "install.sh",
     "examples/input_demo.png",
 )
 
@@ -29,7 +30,7 @@ TREE_RULES: dict[str, set[str]] = {
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Build the standalone DAVINCI release package.")
+    parser = argparse.ArgumentParser(description="Build the DAVINCI macOS CLI release package.")
     parser.add_argument(
         "--output-dir",
         default=str(DEFAULT_RELEASE_DIR),
@@ -81,7 +82,7 @@ def _copy_tree(output_dir: Path, relative_dir: str, allowed_suffixes: set[str]) 
 def _write_release_readme(output_dir: Path) -> str:
     content = """# DAVINCI CLI Release Package
 
-This directory is the source release payload for DAVINCI.
+This directory is the macOS CLI release payload for DAVINCI.
 
 It supports two usage modes:
 - local CLI
@@ -92,19 +93,32 @@ It supports two usage modes:
 - `agents/openai.yaml`
 - `requirements.txt`
 - `pyproject.toml`
+- `install.sh`
 - `examples/input_demo.png`
 - `scripts/*.py`
-- bundled style assets
+- built-in style assets
 
 ## Quick Start
 
-Remember these 3 commands first:
+Recommended install method on macOS:
+
+```bash
+./install.sh
+```
+
+Or with pipx directly:
+
+```bash
+pipx install .
+```
+
+Remember these commands first:
 
 ```bash
 davinci
-davinci activate
 davinci demo
 davinci start
+davinci continue
 ```
 
 If `davinci` is not installed yet, use the module form:
@@ -131,18 +145,12 @@ davinci start
 What `davinci start` does:
 - lets you drag a photo into the terminal
 - lets you paste the path
-- opens the macOS file picker when you press Enter
+- tries to open a local file picker when you press Enter
 - opens the official DAVINCI page once for first-time activation
 - lets you type `demo` if you want to preview the product first
 - shows 3 clearly different looks first
 - saves outputs under `~/Pictures/DAVINCI/`
 - saves demo outputs under `~/Pictures/DAVINCI/_demo/`
-
-## Platform Scope
-
-- Official downloadable build: macOS Apple Silicon only
-- Windows/Linux: no official installer or standalone package yet
-- Source mode on other platforms is not part of the current public support promise
 
 ## Install As A Local Codex Skill
 
@@ -158,6 +166,11 @@ After restart, prompts like these should trigger the skill:
 - `帮我给这张图来个富士味`
 - `给这张照片来点胶片感`
 - `先推荐几个滤镜`
+
+## Platform Note
+
+Official support in this release is macOS CLI only.
+Official no-Python standalone downloads are still macOS Apple Silicon only.
 """
     readme_path = output_dir / "README.md"
     readme_path.write_text(content, encoding="utf-8")

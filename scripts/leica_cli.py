@@ -130,7 +130,7 @@ def build_parser(profile: dict[str, Any] | None = None) -> argparse.ArgumentPars
 
     start_parser = subparsers.add_parser("start", help="Beginner-friendly SenseAR DAVINCI entry")
     start_parser.add_argument("--input", help="Input image path")
-    start_parser.add_argument("--pick", action="store_true", help="Open a file picker to choose the image")
+    start_parser.add_argument("--pick", action="store_true", help="Try to open a file picker to choose the image")
     start_parser.add_argument("--catalog", help="Limit to one built-in style family, such as leica or fuji")
     start_parser.add_argument("--index", help="Optional explicit index.json path for one style family")
     start_parser.add_argument("--output-dir", help="Directory for beginner flow outputs")
@@ -654,7 +654,7 @@ def _run_home_guided_flow(
     preferred_catalog: str | None,
     start_prompt: str | None = None,
 ) -> int:
-    response = input("把照片拖到这里，输入文件路径，或直接回车打开选图窗口: ").strip()
+    response = input("把照片拖到这里，输入文件路径，或直接回车尝试打开选图窗口: ").strip()
     return _run_home_photo_flow(store, response, preferred_catalog=preferred_catalog, start_prompt=start_prompt)
 
 
@@ -1806,7 +1806,7 @@ def _resolve_start_input(args: argparse.Namespace) -> str:
         return _pick_image_path()
     if getattr(args, "json", False):
         raise ValueError("start --json requires --input")
-    response = input('把照片拖到这里，输入 "demo" 先看演示，直接回车打开选择器，输入 "exit" 退出: ').strip()
+    response = input('把照片拖到这里，输入 "demo" 先看演示，直接回车尝试打开选择器，输入 "exit" 退出: ').strip()
     if not response:
         return _pick_image_path()
     token = _normalize_input_token(response)
@@ -1825,9 +1825,7 @@ def _normalize_input_token(raw: str) -> str:
     return token.strip()
 
 
-def _pick_image_path() -> str:
-    if sys.platform != "darwin":
-        raise ValueError("File picker is currently supported on macOS only. Please pass --input.")
+def _pick_image_path_macos() -> tuple[str | None, str | None]:
     script = 'POSIX path of (choose file with prompt "选择一张要处理的照片" of type {"public.image"})'
     result = subprocess.run(
         ["osascript", "-e", script],
@@ -1836,11 +1834,59 @@ def _pick_image_path() -> str:
         check=False,
     )
     if result.returncode != 0:
-        raise ValueError("Image selection was cancelled.")
+        return None, "cancelled"
     selected = result.stdout.strip()
     if not selected:
-        raise ValueError("No input image provided")
-    return selected
+        return None, "empty"
+    return selected, None
+
+
+def _pick_image_path_tk() -> tuple[str | None, str | None]:
+    try:
+        import tkinter as tk
+        from tkinter import filedialog
+    except Exception as exc:
+        return None, f"tk unavailable: {exc}"
+
+    root = None
+    try:
+        root = tk.Tk()
+        root.withdraw()
+        root.update_idletasks()
+        selected = filedialog.askopenfilename(
+            title="选择一张要处理的照片",
+            filetypes=[
+                ("Image files", "*.jpg *.jpeg *.png *.tif *.tiff *.bmp *.webp"),
+                ("All files", "*.*"),
+            ],
+        )
+        if not selected:
+            return None, "cancelled"
+        return selected, None
+    except Exception as exc:
+        return None, str(exc)
+    finally:
+        if root is not None:
+            try:
+                root.destroy()
+            except Exception:
+                pass
+
+
+def _pick_image_path() -> str:
+    if sys.platform == "darwin":
+        selected, error = _pick_image_path_macos()
+        if selected:
+            return selected
+        if error == "cancelled":
+            raise ValueError("Image selection was cancelled.")
+
+    selected, error = _pick_image_path_tk()
+    if selected:
+        return selected
+    if error == "cancelled":
+        raise ValueError("Image selection was cancelled.")
+    raise ValueError("File picker is unavailable on this system. Please pass --input or drag a file path.")
 
 
 def _can_prompt() -> bool:
@@ -2280,7 +2326,7 @@ def _print_demo_next_steps(theme: str, output_dir: Path) -> None:
             [
                 "如果这组演示效果对路，下一步直接处理你自己的照片。",
                 "运行：davinci start",
-                "然后把照片拖进终端，或直接回车打开选择器。",
+                "然后把照片拖进终端，或直接回车尝试打开选择器。",
                 "如果你还想先理解不同风格系列：davinci brands",
                 f"这次演示的结果在：{output_dir}",
                 "原图不会被覆盖。",
