@@ -15,7 +15,7 @@
 当前公开发布的是 `macOS Apple Silicon` 独立版，不需要自己装 Python。
 
 ```bash
-curl -fsSL "https://github.com/SUNRNEHUI/davinci/releases/download/v0.1.0/install.sh" | DAVINCI_RELEASE_URL="https://github.com/SUNRNEHUI/davinci/releases/download/v0.1.0/davinci-macos-v1.zip" sh
+curl -fsSL "https://github.com/SUNRNEHUI/davinci/releases/download/v0.1.1/install.sh" | DAVINCI_RELEASE_URL="https://github.com/SUNRNEHUI/davinci/releases/download/v0.1.1/davinci-macos-v1.zip" sh
 ```
 
 安装完成后直接运行：
@@ -26,7 +26,7 @@ davinci
 
 Release 页面：
 
-- [DAVINCI v0.1.0](https://github.com/SUNRNEHUI/davinci/releases/tag/v0.1.0)
+- [DAVINCI v0.1.1](https://github.com/SUNRNEHUI/davinci/releases/tag/v0.1.1)
 
 ## 第一次使用
 

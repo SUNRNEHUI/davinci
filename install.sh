@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-VERSION="${DAVINCI_VERSION:-v1}"
+VERSION="${DAVINCI_VERSION:-v0.1.1}"
 ASSET_NAME="${DAVINCI_ASSET_NAME:-davinci-macos-v1.zip}"
 RELEASE_URL="${DAVINCI_RELEASE_URL:-}"
 INSTALL_ROOT="${DAVINCI_INSTALL_ROOT:-$HOME/.local/share/davinci}"
