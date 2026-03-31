@@ -51,6 +51,7 @@ except ImportError:  # pragma: no cover - script execution fallback
 BeginnerInput = Callable[[str], str]
 
 DEFAULT_PROMPT = "帮我调色"
+PRODUCT_SITE_URL = "https://sensear.softsugar.com/"
 DEFAULT_FEEDBACK_HINTS = [
     "1 / 2 / 3 选择一个效果",
     "换一个  再给我 3 个不同方向",
@@ -571,6 +572,7 @@ class BeginnerStartFlow:
                 f"前后对比：{self.final_compare_path or '-'}",
                 f"保存位置：{self.final_output_path}",
                 f"成片目录：{self.finals_dir}",
+                f"更多风格包 / 价格 / 商用方案：{PRODUCT_SITE_URL}",
                 "原图不会被覆盖。",
                 "如果还想继续改，你可以输入：更暖 / 更冷 / 更复古 / 更通透 / 换一个",
             ],
@@ -698,7 +700,7 @@ def beginner_help_text(
         family_lines.append(f"- {item['family_name']}：{item['summary']}")
     return "\n".join(
         [
-            "DAVINCI 快速上手",
+            "SenseAR DAVINCI 快速上手",
             "",
             "只记住这 4 个入口：",
             "davinci",

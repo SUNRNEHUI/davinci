@@ -251,7 +251,7 @@ class TestLeicaCLI(unittest.TestCase):
     def test_help_command_outputs_beginner_copy(self) -> None:
         rc, stdout, stderr = self._run_cli(["help"])
         self.assertEqual(rc, 0)
-        self.assertIn("DAVINCI 快速上手", stdout)
+        self.assertIn("SenseAR DAVINCI 快速上手", stdout)
         self.assertIn("帮我调色", stdout)
         self.assertIn(str(self.default_output_root), stdout)
         self.assertIn("内置风格系列", stdout)
@@ -261,20 +261,21 @@ class TestLeicaCLI(unittest.TestCase):
     def test_home_command_shows_demo_first_entry(self) -> None:
         rc, stdout, stderr = self._run_cli(["home"])
         self.assertEqual(rc, 0)
-        self.assertIn("DAVINCI", stdout)
-        self.assertIn("欢迎使用达芬奇调色台", stdout)
+        self.assertIn("SenseAR DAVINCI", stdout)
+        self.assertIn("欢迎使用 SenseAR DAVINCI 调色台", stdout)
         self.assertIn("1. 先看 Leica 风格", stdout)
         self.assertIn("2. 先看 Fuji 风格", stdout)
         self.assertIn("3. 我不确定，直接帮我推荐", stdout)
         self.assertIn("拖入照片或输入文件路径开始", stdout)
         self.assertIn("直接回车：先看演示", stdout)
+        self.assertIn("https://sensear.softsugar.com/", stdout)
         self.assertIn("原图不会被覆盖", stdout)
         self.assertEqual("", stderr)
 
     def test_no_args_defaults_to_home(self) -> None:
         rc, stdout, stderr = self._run_cli([])
         self.assertEqual(rc, 0)
-        self.assertIn("DAVINCI", stdout)
+        self.assertIn("SenseAR DAVINCI", stdout)
         self.assertIn("1. 先看 Leica 风格", stdout)
         self.assertEqual("", stderr)
 
@@ -293,9 +294,9 @@ class TestLeicaCLI(unittest.TestCase):
             rc = leica_cli.main(["home"])
         self.assertEqual(rc, 0)
         text = stdout.getvalue()
-        self.assertIn("欢迎使用达芬奇调色台", text)
+        self.assertIn("欢迎使用 SenseAR DAVINCI 调色台", text)
         self.assertIn("[ACTIVATE]", text)
-        self.assertLess(text.index("欢迎使用达芬奇调色台"), text.index("[ACTIVATE]"))
+        self.assertLess(text.index("欢迎使用 SenseAR DAVINCI 调色台"), text.index("[ACTIVATE]"))
         self.assertIn("USE YOUR OWN PHOTO NEXT", text)
         self.assertEqual("", stderr.getvalue())
 
@@ -440,6 +441,7 @@ class TestLeicaCLI(unittest.TestCase):
             rc = leica_cli.main(["activate"])
         self.assertEqual(rc, 0)
         self.assertIn("激活完成", stdout.getvalue())
+        self.assertIn("https://sensear.softsugar.com/", stdout.getvalue())
         self.assertEqual("", stderr.getvalue())
 
     def test_top_level_help_mentions_home_and_demo(self) -> None:
